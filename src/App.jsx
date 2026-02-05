@@ -145,7 +145,7 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#eef1ee] text-emerald-600 font-bold">
+      <div className="min-h-screen flex items-center justify-center bg-[#e7ebe6] text-emerald-700 font-bold">
         FARMLOG…
       </div>
     )
@@ -154,22 +154,42 @@ function App() {
   // ================= LOGIN =================
   if (!session) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#eef1ee] p-6">
+      <div className="min-h-screen flex items-center justify-center bg-[#dfe5df] p-6">
         <form
           onSubmit={handleLogin}
-          className="bg-white p-8 rounded-3xl w-full max-w-sm shadow-xl space-y-4"
+          className="bg-white p-10 rounded-[2.5rem] w-full max-w-sm shadow-xl space-y-5 border border-gray-200"
         >
-          <h1 className="text-3xl font-extrabold text-center">FARMLOG 🐐</h1>
-          <p className="text-center text-gray-500 text-sm">
-            login dulu atuh
-          </p>
+          <div className="text-center">
+            <h1 className="text-4xl font-extrabold tracking-tight text-[#0f2419]">
+              <span className="uppercase">FARM</span>
+              <span className="uppercase text-emerald-600">LOG</span>
+            </h1>
+            <p className="text-gray-500 text-sm mt-2">
+              login dulu atuh
+            </p>
+          </div>
 
-          <input className="input" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-          <input type="password" className="input" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+          <input
+            className="input"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            className="input"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
 
-          {authError && <p className="text-red-500 text-sm text-center">{authError}</p>}
+          {authError && (
+            <p className="text-red-500 text-sm text-center font-semibold">
+              {authError}
+            </p>
+          )}
 
-          <button className="w-full bg-emerald-500 py-3 rounded-xl font-bold text-white">
+          <button className="w-full bg-emerald-600 hover:bg-emerald-500 transition py-3 rounded-xl font-bold text-white">
             Masuk
           </button>
         </form>
@@ -179,23 +199,54 @@ function App() {
 
   // ================= DASHBOARD =================
   return (
-    <div className="min-h-screen bg-[#eef1ee] text-[#0f2419] pb-32">
+    <div className="min-h-screen bg-[#dfe5df] text-[#0f2419] pb-32">
 
-      {/* DESKTOP NAV */}
-      <nav className="hidden md:flex fixed top-4 left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur px-6 py-3 rounded-full shadow z-50 gap-6 font-bold">
-        <button onClick={() => setShowForm(true)}>➕ Tambah</button>
-        <button onClick={logout} className="text-red-500">Logout</button>
+      {/* DESKTOP NAVBAR (UPDATED) */}
+      <nav className="hidden md:flex fixed top-6 left-1/2 -translate-x-1/2 w-[85%] max-w-5xl bg-[#f6f7f5] border border-gray-200 shadow-md rounded-3xl px-8 py-4 z-50 items-center justify-between">
+        <div className="leading-tight">
+          <h1 className="text-xl font-extrabold tracking-tight text-[#0f2419]">
+            FARMLOG
+          </h1>
+          <p className="text-xs italic text-emerald-900/70">
+            livestock management
+          </p>
+        </div>
+
+        <div className="flex items-center gap-6 font-bold">
+          <button
+            onClick={() => setShowForm(true)}
+            className="text-[#0f2419] hover:text-emerald-700 transition text-sm"
+          >
+            Add
+          </button>
+
+          <button
+            onClick={logout}
+            className="text-[#0f2419] hover:text-red-600 transition text-sm"
+          >
+            Logout
+          </button>
+        </div>
       </nav>
 
       {/* MOBILE HEADER */}
-      <div className="md:hidden flex justify-between items-center px-4 py-4">
-        <h1 className="text-2xl font-extrabold">FARMLOG</h1>
-        <button onClick={logout} className="text-sm text-red-500 font-bold">
+      <div className="md:hidden flex flex-col items-center px-4 py-6">
+        <h1 className="text-3xl font-extrabold tracking-tight text-[#0f2419]">
+          FARMLOG
+        </h1>
+        <p className="text-sm italic text-emerald-900/70 mt-1">
+          Livestock management
+        </p>
+
+        <button
+          onClick={logout}
+          className="text-sm text-red-600 font-bold mt-4"
+        >
           Logout
         </button>
       </div>
 
-      <main className="max-w-2xl mx-auto px-4 space-y-6">
+      <main className="max-w-2xl mx-auto px-4 space-y-6 md:pt-32">
         {list.map((k) => (
           <div
             key={k.id}
@@ -203,10 +254,16 @@ function App() {
           >
             {/* DESKTOP ACTIONS */}
             <div className="hidden md:flex absolute top-4 right-4 gap-2 opacity-0 group-hover:opacity-100 transition">
-              <button onClick={() => handleEdit(k)} className="px-3 py-1 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-sm">
+              <button
+                onClick={() => handleEdit(k)}
+                className="px-3 py-1 rounded-lg bg-emerald-100 text-emerald-700 font-bold text-sm"
+              >
                 ✏️
               </button>
-              <button onClick={() => deleteKambing(k.id)} className="px-3 py-1 rounded-lg bg-red-100 text-red-600 font-bold text-sm">
+              <button
+                onClick={() => deleteKambing(k.id)}
+                className="px-3 py-1 rounded-lg bg-red-100 text-red-600 font-bold text-sm"
+              >
                 🗑️
               </button>
             </div>
@@ -214,22 +271,52 @@ function App() {
             <h2 className="text-2xl font-extrabold">{k.name}</h2>
 
             <p>📅 Lahir: {formatDate(k.birth_date)} ({getAge(k.birth_date)})</p>
-            {k.marriage_date && <p>🤰 Kawin: {formatDate(k.marriage_date)} → {formatDate(k.estimated_birth_date)}</p>}
-            {k.purchase_date && <p>💰 Beli: {formatDate(k.purchase_date)} · Rp{k.purchase_price}</p>}
-            {k.sale_date && <p className="text-emerald-600 font-bold">🧾 Jual: {formatDate(k.sale_date)} · Rp{k.sale_price}</p>}
-            {k.illness_history && <p className="italic text-yellow-700">🤒 {k.illness_history}</p>}
-            {k.death_date && <p className="text-red-600">💀 Meninggal: {formatDate(k.death_date)} — {k.death_note}</p>}
+            {k.marriage_date && (
+              <p>
+                🤰 Kawin: {formatDate(k.marriage_date)} → {formatDate(k.estimated_birth_date)}
+              </p>
+            )}
+            {k.purchase_date && (
+              <p>
+                💰 Beli: {formatDate(k.purchase_date)} · Rp{k.purchase_price}
+              </p>
+            )}
+            {k.sale_date && (
+              <p className="text-emerald-600 font-bold">
+                🧾 Jual: {formatDate(k.sale_date)} · Rp{k.sale_price}
+              </p>
+            )}
+            {k.illness_history && (
+              <p className="italic text-yellow-700">
+                🤒 {k.illness_history}
+              </p>
+            )}
+            {k.death_date && (
+              <p className="text-red-600">
+                💀 Meninggal: {formatDate(k.death_date)} — {k.death_note}
+              </p>
+            )}
 
-            {/* MOBILE ACTIONS */}
+            {/* MOBILE ACTIONS (DO NOT TOUCH) */}
             <div className="flex gap-2 pt-3 md:hidden">
-              <button onClick={() => handleEdit(k)} className="flex-1 bg-emerald-100 text-emerald-700 py-2 rounded-xl font-bold">✏️ Edit</button>
-              <button onClick={() => deleteKambing(k.id)} className="flex-1 bg-red-100 text-red-600 py-2 rounded-xl font-bold">🗑️ Hapus</button>
+              <button
+                onClick={() => handleEdit(k)}
+                className="flex-1 bg-emerald-100 text-emerald-700 py-2 rounded-xl font-bold"
+              >
+                ✏️ Edit
+              </button>
+              <button
+                onClick={() => deleteKambing(k.id)}
+                className="flex-1 bg-red-100 text-red-600 py-2 rounded-xl font-bold"
+              >
+                🗑️ Hapus
+              </button>
             </div>
           </div>
         ))}
       </main>
 
-      {/* FAB */}
+      {/* FAB (DO NOT TOUCH) */}
       <button
         onClick={() => setShowForm(true)}
         className="md:hidden fixed bottom-6 right-6 w-16 h-16 rounded-full bg-emerald-500 text-white text-3xl shadow-xl"
@@ -241,7 +328,9 @@ function App() {
       {showForm && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-white w-full max-w-lg mx-auto rounded-3xl p-6 relative max-h-[90vh] overflow-y-auto">
-            <button onClick={handleCloseForm} className="absolute top-4 right-4 text-xl">✕</button>
+            <button onClick={handleCloseForm} className="absolute top-4 right-4 text-xl">
+              ✕
+            </button>
 
             <h2 className="text-2xl font-extrabold mb-4">
               {editingId ? "Edit Data Kambing" : "Tambah Data Kambing"}
@@ -250,45 +339,85 @@ function App() {
             <div className="space-y-3">
               <div>
                 <label className="label">Nama Kambing</label>
-                <input className="input" value={form.name} onChange={e => setForm({...form, name:e.target.value})} />
+                <input
+                  className="input"
+                  value={form.name}
+                  onChange={e => setForm({ ...form, name: e.target.value })}
+                />
               </div>
 
               <div>
                 <label className="label">Tanggal Lahir</label>
-                <input type="date" className="input" value={form.birth_date} onChange={e => setForm({...form, birth_date:e.target.value})} />
+                <input
+                  type="date"
+                  className="input"
+                  value={form.birth_date}
+                  onChange={e => setForm({ ...form, birth_date: e.target.value })}
+                />
               </div>
 
               <div>
                 <label className="label">Tanggal Perkawinan</label>
-                <input type="date" className="input" value={form.marriage_date} onChange={e => setForm({...form, marriage_date:e.target.value})} />
+                <input
+                  type="date"
+                  className="input"
+                  value={form.marriage_date}
+                  onChange={e => setForm({ ...form, marriage_date: e.target.value })}
+                />
               </div>
 
               <div>
                 <label className="label">Tanggal Pembelian</label>
-                <input type="date" className="input" value={form.purchase_date} onChange={e => setForm({...form, purchase_date:e.target.value})} />
+                <input
+                  type="date"
+                  className="input"
+                  value={form.purchase_date}
+                  onChange={e => setForm({ ...form, purchase_date: e.target.value })}
+                />
               </div>
 
               <div>
                 <label className="label">Harga Pembelian</label>
-                <input type="number" className="input" value={form.purchase_price} onChange={e => setForm({...form, purchase_price:e.target.value})} />
+                <input
+                  type="number"
+                  className="input"
+                  value={form.purchase_price}
+                  onChange={e => setForm({ ...form, purchase_price: e.target.value })}
+                />
               </div>
 
               <div>
                 <label className="label">Riwayat Penyakit</label>
-                <textarea className="input" value={form.illness_history} onChange={e => setForm({...form, illness_history:e.target.value})} />
+                <textarea
+                  className="input"
+                  value={form.illness_history}
+                  onChange={e => setForm({ ...form, illness_history: e.target.value })}
+                />
               </div>
 
               <div>
                 <label className="label">Tanggal Meninggal</label>
-                <input type="date" className="input" value={form.death_date} onChange={e => setForm({...form, death_date:e.target.value})} />
+                <input
+                  type="date"
+                  className="input"
+                  value={form.death_date}
+                  onChange={e => setForm({ ...form, death_date: e.target.value })}
+                />
               </div>
 
               <div>
                 <label className="label">Keterangan Meninggal</label>
-                <textarea className="input" value={form.death_note} onChange={e => setForm({...form, death_note:e.target.value})} />
+                <textarea
+                  className="input"
+                  value={form.death_note}
+                  onChange={e => setForm({ ...form, death_note: e.target.value })}
+                />
               </div>
 
-              <button onClick={saveData} className="w-full bg-emerald-500 text-white py-3 rounded-xl font-bold mt-4">
+              <button
+                onClick={saveData}
+                className="w-full bg-emerald-600 hover:bg-emerald-500 transition text-white py-3 rounded-xl font-bold mt-4"
+              >
                 Simpan Data
               </button>
             </div>
@@ -301,14 +430,14 @@ function App() {
           width: 100%;
           padding: 0.9rem 1rem;
           border-radius: 1rem;
-          border: 1px solid #e5e7eb;
+          border: 1px solid #a7a7a7;
           margin-top: 0.25rem;
           font-weight: 600;
         }
         .label {
           font-weight: 700;
           font-size: 0.9rem;
-          color: #374151;
+          color: #5d6776;
         }
       `}</style>
     </div>
